@@ -101,7 +101,7 @@ final class ServerModel: ObservableObject {
             try paths.createDirectories()
             lockFD = open(paths.root.appendingPathComponent(".instance.lock").path, O_CREAT | O_RDWR, 0o600)
             guard lockFD >= 0, flock(lockFD, LOCK_EX | LOCK_NB) == 0 else {
-                throw LanternError("Lantern is already open. Use its existing window to manage your server.")
+                throw LanternError("Foxfire is already open. Use its existing window to manage your server.")
             }
             ownsLock = true
         } catch { errorMessage = error.localizedDescription }
@@ -269,7 +269,7 @@ final class ServerModel: ObservableObject {
         }
         state = .starting
         activity = "Starting Minecraft… A new world can take a minute."
-        appendLog("[Lantern] Starting Minecraft \(settings.version) with \(settings.memoryGB) GB of memory.")
+        appendLog("[Foxfire] Starting Minecraft \(settings.version) with \(settings.memoryGB) GB of memory.")
     }
 
     private func receive(_ data: Data, from child: Process) {
@@ -336,7 +336,7 @@ final class ServerModel: ObservableObject {
         if child.terminationStatus != 0 && !stoppedNormally {
             errorMessage = "Minecraft exited with code \(child.terminationStatus). Check the console below for details."
         }
-        appendLog("[Lantern] Server stopped (exit \(child.terminationStatus)).")
+        appendLog("[Foxfire] Server stopped (exit \(child.terminationStatus)).")
         process = nil
         try? input?.fileHandleForWriting.close()
         input = nil

@@ -64,7 +64,7 @@ final class ServerLibrary: ObservableObject {
 
     @discardableResult func create(name: String) throws -> ServerModel {
         let name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard servers.first?.ownsLock == true, !name.isEmpty else { throw LanternError("Enter a server name in the main Lantern window.") }
+        guard servers.first?.ownsLock == true, !name.isEmpty else { throw LanternError("Enter a server name in the main Foxfire window.") }
         let used = Set(servers.compactMap { UInt16($0.settings.port) })
         guard let port = (UInt16(25565)...UInt16.max).first(where: { !used.contains($0) && ServerFiles.portIsAvailable($0) }) else {
             throw LanternError("No available server port was found.")

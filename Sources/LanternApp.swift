@@ -34,7 +34,7 @@ struct LanternApp: App {
     }
 
     var body: some Scene {
-        Window("Lantern", id: "main") {
+        Window("Foxfire", id: "main") {
             ContentView(model: library.selected, library: library)
                 .id(library.selected.paths.root)
                 .onAppear {
@@ -57,7 +57,7 @@ struct LanternApp: App {
         } label: {
             Image(nsImage: LanternIcon.creeper)
                 .renderingMode(.template)
-                .accessibilityLabel("Lantern")
+                .accessibilityLabel("Foxfire")
         }
 
     }
@@ -89,7 +89,7 @@ private enum LanternIcon {
             return true
         }
         image.isTemplate = true
-        image.accessibilityDescription = "Lantern"
+        image.accessibilityDescription = "Foxfire"
         return image
     }()
 }
@@ -112,11 +112,11 @@ struct LanternMenu: View {
     var body: some View {
         Text(model.settings.displayName ?? "My Minecraft server")
         Text(model.state.label+" · "+String(model.players.count)+" online")
-        Button("Open Lantern"){openWindow(id:"main");NSApp.activate(ignoringOtherApps:true)}
+        Button("Open Foxfire"){openWindow(id:"main");NSApp.activate(ignoringOtherApps:true)}
         Button("Copy join address"){model.copyAddress()}.disabled(model.joinAddress == nil)
         Button("Start server") { model.start() }.disabled(!model.canStart)
         Button("Stop server"){model.stop()}.disabled(!model.hosting)
-        Button("Quit Lantern"){NSApp.terminate(nil)}
+        Button("Quit Foxfire"){NSApp.terminate(nil)}
     }
 }
 
@@ -195,7 +195,7 @@ struct ContentView: View {
             Button("Save") {
                 model.settings.displayName = draftName.trimmingCharacters(in: .whitespacesAndNewlines)
             }.disabled(draftName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-        } message: { Text("This name identifies the server in Lantern.") }
+        } message: { Text("This name identifies the server in Foxfire.") }
     }
 
     private var sidebar: some View {
@@ -208,7 +208,7 @@ struct ContentView: View {
                     .frame(width: 24, height: 24)
                     .foregroundStyle(accent)
                     .accessibilityHidden(true)
-                Text("Lantern").fontWeight(.bold)
+                Text("Foxfire").fontWeight(.bold)
             }.font(.system(size: 22, design: .rounded)).padding(.leading, 10).padding(.vertical, 18)
             if let library { ServerSwitcher(library: library, current: model).padding(.bottom, 8) }
             ForEach(DashboardSection.allCases, id: \.self) { item in
