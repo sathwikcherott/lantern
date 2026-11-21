@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>Lantern</string>
+	<key>CFBundleExecutable</key>
+	<string>Lantern</string>
+	<key>CFBundleIconFile</key>
+	<string>Lantern</string>
+	<key>CFBundleIdentifier</key>
+	<string>local.sathwik.lantern</string>
+	<key>CFBundleName</key>
+	<string>Lantern</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.5</string>
+	<key>CFBundleVersion</key>
+	<string>21</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>14.0</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Host Minecraft so players on your local network can join your world.</string>
+</dict>
+</plist>
