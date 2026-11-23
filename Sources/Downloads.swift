@@ -79,7 +79,7 @@ actor Downloads {
 
     private func prepareJava(major: Int, in runtimes: URL) async throws -> URL {
         guard [17, 21, 25].contains(major) else {
-            throw LanternError("This Minecraft version needs Java \(major). Foxfire currently supports Java 17, 21 and 25.")
+            throw LanternError("This Minecraft version needs Java \(major). Lantern currently supports Java 17, 21 and 25.")
         }
         // Prefer an existing matching installation before fetching a private runtime.
         if let home = try? await Command.run("/usr/libexec/java_home", ["-v", String(major)]) {

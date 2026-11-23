@@ -79,7 +79,7 @@ struct ServerPanels: View {
                 HStack {
                     Button("Import folder or ZIP…") {
                         guard let file=model.choose("Import world",folders:true) else {return}
-                        if model.confirm("Import into "+version+"?", "Replace "+model.worldFolder.lastPathComponent+" with "+file.lastPathComponent+". Foxfire will back up the current world first.","Import") {model.operate("import",[file.path])}
+                        if model.confirm("Import into "+version+"?", "Replace "+model.worldFolder.lastPathComponent+" with "+file.lastPathComponent+". Lantern will back up the current world first.","Import") {model.operate("import",[file.path])}
                     }
                     Button("Export world ZIP…") { if let url=model.saveTo(model.worldFolder.lastPathComponent+".zip"){model.operate("export",[url.path])} }
                     Button("Open server folder"){model.showFiles()}
@@ -339,7 +339,7 @@ struct ServerPanels: View {
                         Button("Restore…"){restore(file)}.disabled(model.busy)
                     }
                 }
-                Button("Export server to another Mac…"){if let file=model.saveTo("Foxfire-"+version+".zip"){model.operate("migration",[file.path])}}.disabled(model.busy)
+                Button("Export server to another Mac…"){if let file=model.saveTo("Lantern-"+version+".zip"){model.operate("migration",[file.path])}}.disabled(model.busy)
                 Button("Test a backup privately…"){if let file=model.choose("Test backup"){model.testCopy(archive:file,disabled:[])}}.disabled(model.busy || !model.settings.acceptedEULA)
                 if let data=try? Data(contentsOf:model.selectedProfile.appendingPathComponent("usercache.json")), let users=try? JSONSerialization.jsonObject(with:data) as? [[String:Any]] {
                     Picker("Recover player",selection:$playerID){Text("Choose a player").tag("");ForEach(users.compactMap{row -> String? in guard let name=row["name"] as? String,let id=row["uuid"] as? String else{return nil};return name+" "+id}.sorted(),id:\.self){item in
@@ -348,7 +348,7 @@ struct ServerPanels: View {
                 }
                 TextField("Player UUID for inventory recovery",text:$playerID)
                 Button("Recover inventory from backup…"){
-                    if let file=model.choose("Choose player's backup"),model.confirm("Restore this inventory and Ender Chest?","Foxfire will back up the current server before changing the selected player.","Recover"){model.operate("inventory",[file.path,playerID])}
+                    if let file=model.choose("Choose player's backup"),model.confirm("Restore this inventory and Ender Chest?","Lantern will back up the current server before changing the selected player.","Recover"){model.operate("inventory",[file.path,playerID])}
                 }.disabled(UUID(uuidString:playerID)==nil || model.busy)
                 Button("Restore backup from file…"){if let file=model.choose("Choose server backup"){restore(file)}}.disabled(model.busy)
             }.id(refresh)

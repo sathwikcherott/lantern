@@ -6,12 +6,12 @@ mkdir -p "$LANTERN_OUTPUT"
 LANTERN_OUTPUT="${LANTERN_OUTPUT:A}"
 LANTERN_STAGE="$(mktemp -d "${TMPDIR:-/private/tmp}/lantern-build.XXXXXX")"
 trap 'rm -rf "$LANTERN_STAGE"' EXIT
-LANTERN_BUNDLE="$LANTERN_STAGE/Foxfire.app"
+LANTERN_BUNDLE="$LANTERN_STAGE/Lantern.app"
 LANTERN_MODULE_CACHE="${PWD}/build/module-cache"
 mkdir -p "$LANTERN_BUNDLE/Contents/MacOS" "$LANTERN_BUNDLE/Contents/Resources"
 swiftc -swift-version 5 -O -parse-as-library -target arm64-apple-macos14.0 \
     -module-cache-path "$LANTERN_MODULE_CACHE" \
-    Sources/*.swift -o "$LANTERN_BUNDLE/Contents/MacOS/Foxfire"
+    Sources/*.swift -o "$LANTERN_BUNDLE/Contents/MacOS/Lantern"
 mkdir -p "$LANTERN_STAGE/classes"
 javac --release 17 -d "$LANTERN_STAGE/classes" Telemetry/LanternMetrics.java
 printf 'Premain-Class: LanternMetrics\n' > "$LANTERN_STAGE/metrics.mf"
@@ -25,5 +25,5 @@ fi
 xattr -cr "$LANTERN_BUNDLE"
 codesign --force --sign - "$LANTERN_BUNDLE"
 codesign --verify --deep --strict "$LANTERN_BUNDLE"
-ditto -c -k --keepParent --norsrc --noextattr "$LANTERN_BUNDLE" "$LANTERN_OUTPUT/Foxfire.zip"
-print "Built $LANTERN_OUTPUT/Foxfire.zip"
+ditto -c -k --keepParent --norsrc --noextattr "$LANTERN_BUNDLE" "$LANTERN_OUTPUT/Lantern.zip"
+print "Built $LANTERN_OUTPUT/Lantern.zip"

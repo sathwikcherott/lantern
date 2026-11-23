@@ -72,7 +72,7 @@ enum Catalog {
         var endpoint = URLComponents(string:"https://api.modrinth.com/v2/"+path)!
         endpoint.queryItems=queries.map { URLQueryItem(name:$0.key,value:$0.value) }
         var request=URLRequest(url:endpoint.url!)
-        request.setValue("Foxfire-macOS/1.3",forHTTPHeaderField:"User-Agent")
+        request.setValue("Lantern-macOS/1.3",forHTTPHeaderField:"User-Agent")
         let (data,response)=try await URLSession.shared.data(for:request)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw LanternError("Modrinth could not complete this request.") }
         return try JSONDecoder().decode(T.self,from:data)

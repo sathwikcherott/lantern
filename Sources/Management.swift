@@ -170,7 +170,7 @@ extension ServerModel {
             Task {
                 do {
                     let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
-                    if !granted { notice = "Allow Foxfire alerts in System Settings → Notifications." }
+                    if !granted { notice = "Allow Lantern alerts in System Settings → Notifications." }
                 } catch { errorMessage = error.localizedDescription }
             }
         }
@@ -365,7 +365,7 @@ extension ServerModel {
     }
     func upgrade(to target:String) {
         guard ownsLock,!busy,hasWorld,let next=versions.first(where:{$0.id==target}),let old=versions.first(where:{$0.id==settings.version}),next.releaseTime>old.releaseTime else{return}
-        guard confirm("Upgrade "+old.id+" to "+target+"?","Foxfire will archive "+old.id+" with its world and add-ons, then prepare a separate "+target+" profile. The old profile is available for rollback.","Prepare upgrade") else{return}
+        guard confirm("Upgrade "+old.id+" to "+target+"?","Lantern will archive "+old.id+" with its world and add-ons, then prepare a separate "+target+" profile. The old profile is available for rollback.","Prepare upgrade") else{return}
         let opts=settings.options
         state = .backingUp
         Task {
@@ -415,7 +415,7 @@ extension ServerModel {
             defer{finishStopped();completeQuitIfNeeded()}
             do {
                 guard let (change,file,originalHash)=try await Catalog.newer(for:jar,version:settings.version,loader:software) else{notice="This add-on is already up to date.";return}
-                guard confirm("Update "+jar.lastPathComponent+"?",change+"\nFoxfire will create a full backup before replacement.","Update") else{return}
+                guard confirm("Update "+jar.lastPathComponent+"?",change+"\nLantern will create a full backup before replacement.","Update") else{return}
                 let (tmp,response)=try await URLSession.shared.download(from:file.url)
                 defer{try? FileManager.default.removeItem(at:tmp)}
                 guard (response as? HTTPURLResponse)?.statusCode==200,try ServerFiles.digest(tmp)==file.hashes["sha1"],try ServerFiles.digest(jar)==originalHash else {throw LanternError("Add-on verification failed.")}
