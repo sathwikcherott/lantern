@@ -2,7 +2,7 @@
 
 Host a Minecraft Java Edition server on your Mac. Use its dashboard to switch between server profiles, manage worlds and backups, install compatible mods, and see live server performance.
 
-## Install on another Mac
+## Install on Mac
 
 Lantern runs on Apple Silicon with macOS 14 or later.
 
